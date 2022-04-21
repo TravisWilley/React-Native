@@ -4,15 +4,17 @@ import 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native';
 import { Provider } from 'react-redux';
 import { ConfigureStore } from './redux/ConfigureStore';
+import { PersistGate } from 'redux-persist/es/integration/react';
+import Loading from './components/LoadingComponent';
 
-const store = ConfigureStore();
+const { persistor, store } = ConfigureStore();
 
 export default function App() {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Provider store={store}>
+    <Provider store={store}>
+      <PersistGate loading={<Loading />} persistor={persistor}>
         <Main />
-      </Provider>
-    </SafeAreaView>
+      </PersistGate>
+    </Provider>
   );
 }
